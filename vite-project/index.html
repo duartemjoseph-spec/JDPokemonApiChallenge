@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="./src/output.css" />
+
+  <!-- Fun font for headings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+
+  <title>Pokemon API Challenge</title>
+</head>
+
+<body class="min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/background.png');">
+  <div class="min-h-screen bg-black/50">
+    <div class="min-h-screen flex flex-col justify-center p-4">
+      <div class="w-full max-w-6xl mx-auto">
+
+        <!-- HEADER -->
+        <div
+          class="max-w-4xl mx-auto mb-5 bg-sky-100/80 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-slate-300 p-5">
+          <div class="relative text-center mb-4">
+            <h1 class="text-3xl sm:text-5xl font-black tracking-wide" style="font-family:'Luckiest Guy', system-ui;">
+              <span class="relative text-emerald-600" 
+      
+    ">
+                Pokedex!
+              </span>
+            </h1>
+
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-2 items-center justify-center mb-2">
+            <input id="searchInput" class="h-12 w-full sm:w-96 rounded-xl border-2 border-slate-400 px-4 bg-white/90"
+              placeholder="Name or # (1-649)" />
+            <button id="searchBtn" class="h-12 px-5 rounded-xl bg-slate-900 text-white shadow">
+              Search
+            </button>
+            <button id="randomBtn" class="h-12 px-5 rounded-xl bg-indigo-600 text-white shadow">
+              Random
+            </button>
+          </div>
+
+          <p id="statusText" class="text-center text-slate-800 text-sm"></p>
+        </div>
+
+        <div class="flex justify-center">
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 w-full max-w-6xl">
+
+            <!-- POKEMON CARD -->
+            <section
+              class="bg-sky-100/80 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-slate-300 p-5 lg:col-span-2">
+              <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-3">
+                <!-- Outlined name -->
+                <div class="relative">
+                  <h2 id="pokeName" class="text-2xl sm:text-4xl font-black tracking-wide"
+                    style="font-family:'Luckiest Guy', system-ui;">
+                    <span class="absolute inset-0 translate-x-1 translate-y-1 text-slate-900/90 select-none">
+                      No Pokemon Loaded
+                    </span>
+                    <span class="relative text-emerald-600">
+                      No Pokemon Loaded
+                    </span>
+                  </h2>
+                </div>
+
+                <button id="favBtn" class="h-12 px-4 rounded-xl bg-emerald-600 text-white shadow">
+                  Add to Favorites
+                </button>
+              </div>
+
+              <p class="mb-3 text-base">
+                <span class="font-semibold">Pokedex #:</span>
+                <span id="pokeId">-</span>
+              </p>
+
+              <!-- Images -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+                <div class="text-center">
+                  <p class="font-semibold text-base">Normal</p>
+                  <div class="bg-white/90 rounded-2xl border-2 border-slate-300 p-4 mt-2 flex justify-center">
+                    <img id="imgNormal" class="w-52 h-52 sm:w-64 sm:h-64 object-contain" />
+                  </div>
+                </div>
+
+                <div class="text-center">
+                  <p class="font-semibold text-base">Shiny</p>
+                  <div class="bg-white/90 rounded-2xl border-2 border-slate-300 p-4 mt-2 flex justify-center">
+                    <img id="imgShiny" class="w-52 h-52 sm:w-64 sm:h-64 object-contain" />
+                  </div>
+                </div>
+              </div>
+
+              <p class="mb-2 text-base">
+                <span class="font-semibold">Types:</span>
+                <span id="pokeTypes">-</span>
+              </p>
+              <p class="mb-4 text-base">
+                <span class="font-semibold">Location:</span>
+                <span id="pokeLocation">-</span>
+              </p>
+
+              <details class="mb-3">
+                <summary class="cursor-pointer font-semibold text-base">Abilities</summary>
+                <ul id="abilitiesList" class="list-disc ml-6 mt-2 max-h-52 overflow-auto"></ul>
+              </details>
+
+              <details class="mb-3">
+                <summary class="cursor-pointer font-semibold text-base">Moves</summary>
+                <ul id="movesList" class="list-disc ml-6 mt-2 max-h-52 overflow-auto"></ul>
+              </details>
+
+              <details>
+                <summary class="cursor-pointer font-semibold text-base">Evolution Line</summary>
+                <div id="evoPaths" class="mt-3 space-y-3"></div>
+              </details>
+            </section>
+
+            <!-- FAVORITES -->
+            <div class="bg-sky-100/80 backdrop-blur-sm rounded-3xl shadow-xl border-4 border-slate-300 p-5">
+              <div class="relative mb-3">
+                <h2 class="text-xl sm:text-2xl font-black tracking-wide" style="font-family:'Luckiest Guy', system-ui;">
+                  <span class="absolute inset-0 translate-x-1 translate-y-1 text-slate-900/90 select-none">
+                    Favorites
+                  </span>
+                  <span class="relative text-yellow-300">Favorites</span>
+                </h2>
+              </div>
+
+              <ul id="favoritesList" class="space-y-2"></ul>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
+  <script type="module" src="./scripts/app.js"></script>
+</body>
+
+</html>
